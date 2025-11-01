@@ -1,16 +1,78 @@
-<!doctype html>
-<html lang="hu">
-<meta charset="utf-8">
-<title>🌌 Crystal V9.8</title>
-<body style="font-family:system-ui;background:#0b0b12;color:#eef;padding:2rem;">
-<h1>🌌 Crystal V9.8</h1>
-<p>Élő végpontok:</p>
-<ul>
-  <li><a href="/viz.html">3D térkép</a></li>
-  <li><a href="/api/healthz">/api/healthz</a></li>
-  <li><a href="/api/nodes">/api/nodes</a></li>
-  <li><a href="/api/join">/api/join</a></li>
-</ul>
-<p style="margin-top:2rem;">Δjoin Δflow Δlight</p>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crystal Grid V9.8 ✨</title>
+  <style>
+    body {
+      background: radial-gradient(circle at 50% 50%, #0b0f1a, #000);
+      color: #d9e4ff;
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    h1 {
+      margin-top: 2.5rem;
+      font-size: 2.2rem;
+      color: #8ac4ff;
+      text-shadow: 0 0 10px #49f, 0 0 20px #9cf;
+    }
+    .status {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: #b5d0ff;
+    }
+    .node {
+      display: inline-block;
+      margin: 1rem;
+      padding: 1rem;
+      border: 1px solid #5af;
+      border-radius: 10px;
+      background: rgba(30,50,100,0.15);
+      box-shadow: 0 0 12px rgba(100,180,255,0.3);
+    }
+    .core { border-color: #6ff; }
+    .mountain { border-color: #f9f; }
+    footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      font-size: 0.9rem;
+      color: #88a;
+    }
+  </style>
+</head>
+<body>
+  <h1>✨ Crystal Grid V9.8 Online ✨</h1>
+  <div class="status" id="status">Se încarcă nodurile...</div>
+  <div id="grid"></div>
+
+  <footer>🌀 Rezonanță activă · φ 1.618 · Kedvess Network</footer>
+
+  <script>
+    async function loadNodes() {
+      const statusEl = document.getElementById('status');
+      const gridEl = document.getElementById('grid');
+      try {
+        const res = await fetch('/api/nodes');
+        if (!res.ok) throw new Error('Rețea inactivă');
+        const data = await res.json();
+        statusEl.textContent = "🟢 Noduri conectate: " + data.nodes.length;
+        gridEl.innerHTML = data.nodes.map(n => `
+          <div class="node ${n.type}">
+            <strong>${n.name}</strong><br>
+            ${n.type}<br>
+            <small>${n.resonance}</small>
+          </div>
+        `).join('');
+      } catch (err) {
+        statusEl.textContent = "🔴 Nod neconectat: " + err.message;
+      }
+    }
+    loadNodes();
+  </script>
 </body>
 </html>

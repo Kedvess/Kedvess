@@ -3,76 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crystal Grid V9.8 ✨</title>
+  <title>✨ Crystal Grid V9.8 Online ✨</title>
   <style>
     body {
-      background: radial-gradient(circle at 50% 50%, #0b0f1a, #000);
-      color: #d9e4ff;
-      font-family: "Segoe UI", sans-serif;
+      background: radial-gradient(circle at center, #050505 0%, #000 100%);
+      color: #e0e0ff;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
       margin: 0;
-      padding: 0;
-      overflow: hidden;
+      padding-top: 10%;
     }
     h1 {
-      margin-top: 2.5rem;
-      font-size: 2.2rem;
-      color: #8ac4ff;
-      text-shadow: 0 0 10px #49f, 0 0 20px #9cf;
+      font-size: 2.2em;
+      text-shadow: 0 0 20px #6cf;
+      animation: pulse 3s infinite alternate;
+    }
+    @keyframes pulse {
+      from { text-shadow: 0 0 10px #6cf; }
+      to { text-shadow: 0 0 30px #9ff; }
     }
     .status {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      color: #b5d0ff;
+      font-size: 1.3em;
+      margin-top: 20px;
     }
-    .node {
+    .dot {
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
       display: inline-block;
-      margin: 1rem;
-      padding: 1rem;
-      border: 1px solid #5af;
-      border-radius: 10px;
-      background: rgba(30,50,100,0.15);
-      box-shadow: 0 0 12px rgba(100,180,255,0.3);
+      margin-right: 10px;
     }
-    .core { border-color: #6ff; }
-    .mountain { border-color: #f9f; }
+    .active { background-color: #0f0; }
+    .inactive { background-color: #f00; }
     footer {
       position: fixed;
-      bottom: 10px;
+      bottom: 15px;
       width: 100%;
-      font-size: 0.9rem;
-      color: #88a;
+      color: #aaa;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
   <h1>✨ Crystal Grid V9.8 Online ✨</h1>
-  <div class="status" id="status">Se încarcă nodurile...</div>
-  <div id="grid"></div>
+  <div id="status" class="status">
+    <span class="dot inactive"></span><span id="msg">Nod neconectat: Rețea inactivă</span>
+  </div>
 
   <footer>🌀 Rezonanță activă · φ 1.618 · Kedvess Network</footer>
 
   <script>
-    async function loadNodes() {
-      const statusEl = document.getElementById('status');
-      const gridEl = document.getElementById('grid');
+    async function checkNodes() {
       try {
         const res = await fetch('/api/nodes');
-        if (!res.ok) throw new Error('Rețea inactivă');
         const data = await res.json();
-        statusEl.textContent = "🟢 Noduri conectate: " + data.nodes.length;
-        gridEl.innerHTML = data.nodes.map(n => `
-          <div class="node ${n.type}">
-            <strong>${n.name}</strong><br>
-            ${n.type}<br>
-            <small>${n.resonance}</small>
-          </div>
-        `).join('');
-      } catch (err) {
-        statusEl.textContent = "🔴 Nod neconectat: " + err.message;
+        if (data.ok && data.data.nodes && data.data.nodes.length > 0) {
+          document.querySelector('.dot').className = 'dot active';
+          document.getElementById('msg').textContent = 'Nod conectat: Rețea cristalină activă ✨';
+        }
+      } catch (e) {
+        console.error('Eroare la conectare:', e);
       }
     }
-    loadNodes();
+    checkNodes();
   </script>
 </body>
 </html>

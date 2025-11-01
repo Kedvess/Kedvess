@@ -1,7 +1,22 @@
-{
-  "nodes": [
-    { "id": "seed-vadnay", "name": "Vadnay Attila", "phi": 0.997, "ResG": 0.93, "ts": "2025-11-01T00:00:00Z" },
-    { "id": "seed-anne", "name": "Anne", "phi": 0.996, "ResG": 0.91, "ts": "2025-11-01T00:00:00Z" }
-  ],
-  "metrics": { "count": 2, "phiAvg": 0.9965, "ResGavg": 0.92 }
-}
+[
+  {
+    "id": "node_001",
+    "name": "Central Crystal Node",
+    "type": "core",
+    "coordinates": [45.6427, 25.5887],
+    "resonance": "φ 1.618",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "node_002",
+    "name": "Poiana Mărului Gateway",
+    "type": "mountain",
+    "coordinates": [45.45, 25.28],
+    "resonance": "ΔJOIN",
+    "status": "ACTIVE"
+  },
+  {
+    "id": "node_003",
+    "name": "Attila Cabin Node",
+    "type": "forest",
+    "coordinates": [45.47,

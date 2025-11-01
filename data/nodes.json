@@ -1,22 +1,24 @@
-[
-  {
-    "id": "node_001",
-    "name": "Central Crystal Node",
-    "type": "core",
-    "coordinates": [45.6427, 25.5887],
-    "resonance": "φ 1.618",
-    "status": "ACTIVE"
-  },
-  {
-    "id": "node_002",
-    "name": "Poiana Mărului Gateway",
-    "type": "mountain",
-    "coordinates": [45.45, 25.28],
-    "resonance": "ΔJOIN",
-    "status": "ACTIVE"
-  },
-  {
-    "id": "node_003",
-    "name": "Attila Cabin Node",
-    "type": "forest",
-    "coordinates": [45.47,
+{
+  "nodes": [
+    {
+      "id": "node_001",
+      "name": "Central Crystal Node",
+      "type": "core",
+      "coordinates": [45.6427, 25.5887],
+      "resonance": "φ 1.618",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "node_002",
+      "name": "Poiana Mărului Gateway",
+      "type": "mountain",
+      "coordinates": [45.45, 25.28],
+      "resonance": "AJOIN",
+      "status": "ACTIVE"
+    }
+  ],
+  "metrics": {
+    "count": 2,
+    "phiAvg": 1.618
+  }
+}

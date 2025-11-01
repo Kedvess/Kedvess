@@ -1,7 +1,0 @@
-{
-  "nodes": [
-    { "id": "seed-vadnay", "name": "Vadnay Attila", "phi": 0.997, "ResG": 0.93, "ts": "2025-11-01T00:00:00Z" },
-    { "id": "seed-anne", "name": "Anne", "phi": 0.996, "ResG": 0.91, "ts": "2025-11-01T00:00:00Z" }
-  ],
-  "metrics": { "count": 2, "phiAvg": 0.9965, "ResGavg": 0.92 }
-}

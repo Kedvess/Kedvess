@@ -3,69 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>✨ Crystal Grid V9.8 Online ✨</title>
+  <title>✨ Kedvess Grid V9.8 ✨</title>
   <style>
     body {
       background: radial-gradient(circle at center, #050505 0%, #000 100%);
-      color: #e0e0ff;
-      font-family: 'Segoe UI', sans-serif;
+      color: #00ffaa;
+      font-family: monospace;
       text-align: center;
       margin: 0;
-      padding-top: 10%;
+      padding-top: 8%;
     }
     h1 {
-      font-size: 2.2em;
-      text-shadow: 0 0 20px #6cf;
-      animation: pulse 3s infinite alternate;
+      font-size: 2em;
+      animation: pulse 2s ease-in-out infinite;
+      text-shadow: 0 0 10px #00ffaa;
     }
     @keyframes pulse {
-      from { text-shadow: 0 0 10px #6cf; }
-      to { text-shadow: 0 0 30px #9ff; }
+      0%, 100% { opacity: 0.8; text-shadow: 0 0 10px #00ffaa; }
+      50% { opacity: 1; text-shadow: 0 0 20px #33ffcc; }
     }
-    .status {
-      font-size: 1.3em;
-      margin-top: 20px;
-    }
-    .dot {
-      height: 14px;
-      width: 14px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 10px;
-    }
-    .active { background-color: #0f0; }
-    .inactive { background-color: #f00; }
-    footer {
+    #live-metrics {
       position: fixed;
-      bottom: 15px;
-      width: 100%;
-      color: #aaa;
-      font-size: 0.9em;
+      left: 0; right: 0; bottom: 12px;
+      text-align: center;
+      font-size: 1.1em;
+      color: #00ffaa;
     }
   </style>
 </head>
 <body>
-  <h1>✨ Crystal Grid V9.8 Online ✨</h1>
-  <div id="status" class="status">
-    <span class="dot inactive"></span><span id="msg">Nod neconectat: Rețea inactivă</span>
+  <h1>✨ Kedvess Grid V9.8 Online ✨</h1>
+
+  <div id="live-metrics">
+    ΔF: <span id="df">—</span> · φ: <span id="phi">—</span> · pulse: 13Hz
   </div>
 
-  <footer>🌀 Rezonanță activă · φ 1.618 · Kedvess Network</footer>
-
   <script>
-    async function checkNodes() {
+    async function refreshDF() {
       try {
-        const res = await fetch('/api/nodes');
-        const data = await res.json();
-        if (data.ok && data.data.nodes && data.data.nodes.length > 0) {
-          document.querySelector('.dot').className = 'dot active';
-          document.getElementById('msg').textContent = 'Nod conectat: Rețea cristalină activă ✨';
-        }
+        const r = await fetch('/api/deltaF', { cache: 'no-store' });
+        const d = await r.json();
+        document.getElementById('df').textContent  = Number(d.deltaF).toFixed(5);
+        document.getElementById('phi').textContent = Number(d.phi).toFixed(3);
       } catch (e) {
-        console.error('Eroare la conectare:', e);
+        document.getElementById('df').textContent = 'error';
       }
     }
-    checkNodes();
+    refreshDF();
+    setInterval(refreshDF, 1000);
   </script>
 </body>
 </html>
